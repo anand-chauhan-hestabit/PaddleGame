@@ -1,0 +1,77 @@
+# this code is building and dynamically compiled and run for linux
+
+# CXX := g++
+# CXXFLAGS := -std=c++11 -Wall
+
+# # Add the source files of your project
+# SOURCES := gameMode.cpp sourceFiles/UserInterFace.cpp  sourceFiles/ball.cpp sourceFiles/player.cpp sourceFiles/paddle.cpp sourceFiles/inputSystem.cpp
+
+# # Specify the name of the output executable
+# EXECUTABLE := dynamicPaddleGame
+
+# # Specify the libraries to link (e.g., SFML)
+# LIBRARIES := -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio -lsfml-network 
+
+# .PHONY: all clean run
+
+# all: $(EXECUTABLE)
+
+# $(EXECUTABLE): $(SOURCES)
+# 	$(CXX) $(CXXFLAGS) -o $@ $^ $(LIBRARIES)
+
+# clean:
+# 	rm -f $(EXECUTABLE)
+
+# run: clean $(EXECUTABLE)
+# 	./$(EXECUTABLE)
+
+
+
+
+
+# # this code is building and statically compiled run for windows
+
+CC = x86_64-w64-mingw32-g++
+CFLAGS = -Wall
+LDFLAGS = -L/home/hestabit/Desktop/PaddleGame/Library/SFML/lib
+# LIBS = -lsfml-graphics-s -lsfml-window-s -lsfml-system-s -lopengl32 -lfreetype -lwinmm -lgdi32 -mwindows -lsfml-main -static-libgcc -static-libstdc++
+LIBS = -lsfml-graphics-s -lsfml-window-s -lsfml-system-s -lsfml-main -lopengl32 -lfreetype -lwinmm -lgdi32 -static-libgcc -static-libstdc++
+
+# List of source files
+SOURCES = gameMode.cpp sourceFiles/UserInterFace.cpp  sourceFiles/ball.cpp sourceFiles/player.cpp sourceFiles/paddle.cpp sourceFiles/inputSystem.cpp
+
+# Generate corresponding object file names
+OBJECTS = $(SOURCES:.cpp=.o)
+
+main.exe: $(OBJECTS)
+	$(CC) $(CFLAGS) -o main.exe $(OBJECTS) $(LDFLAGS) $(LIBS)
+
+# Rule to compile each source file
+%.o: %.cpp
+	$(CC) $(CFLAGS) -I/home/hestabit/Desktop/PaddleGame/Library/SFML/include -c $< -o $@ -DSFML_STATIC
+
+clean:
+	rm -f $(OBJECTS) main.exe
+
+
+#build for linux static
+# CC = g++
+# CFLAGS = -Wall -I/home/hestabit/Desktop/PaddleGame/Library/SFML_Linux/include
+# LDFLAGS = -L/home/hestabit/Desktop/PaddleGame/Library/SFML_Linux/lib
+# LIBS = -L/usr/X11R6/lib -lsfml-graphics-s -lsfml-window-s -lsfml-system-s -lX11 -lXrandr -ludev -lXcursor -lfreetype -static-libgcc -static-libstdc++
+
+# # List of source files
+# SOURCES = gameMode.cpp sourceFiles/UserInterFace.cpp sourceFiles/ball.cpp sourceFiles/player.cpp sourceFiles/paddle.cpp sourceFiles/inputSystem.cpp
+
+# # Generate corresponding object file names
+# OBJECTS = $(SOURCES:.cpp=.o)
+
+# paddleGame: $(OBJECTS)
+# 	$(CC) $(CFLAGS) -o paddleGame $(OBJECTS) $(LDFLAGS) $(LIBS)
+
+# # Rule to compile each source file
+# %.o: %.cpp
+# 	$(CC) $(CFLAGS) -c $< -o $@ -DSFML_STATIC
+
+# clean:
+# 	rm -f $(OBJECTS) paddleGame
