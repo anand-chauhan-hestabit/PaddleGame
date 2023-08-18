@@ -10,7 +10,7 @@ class Player
 {
 private:
     Paddle *paddle;     // Use a pointer for Paddle
-    InputSystem *input; // use a pointer for Inoput system
+    InputSystem *input; // use a pointer for Input system
 
 public:
     int id;
@@ -21,7 +21,11 @@ public:
 
     Paddle* getPaddle()
     {
-        return paddle; // Return the Paddle object by reference
+        return paddle; // Return the Paddle object by reference //return a paddlle for get a bounds of paddle for collisions and this is getter for private membet 
+    }
+     InputSystem* getInput()
+    {
+        return input; // Return the Paddle object by reference //return a paddlle for get a bounds of paddle for collisions and this is getter for private membet 
     }
 
     void draw(sf::RenderWindow &window);

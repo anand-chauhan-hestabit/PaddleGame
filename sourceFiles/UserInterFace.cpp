@@ -40,7 +40,7 @@ UserInterFace::UserInterFace(int characterSize, Color color, Vector2f position)
     mGameStatus.setCharacterSize(this->characterSize / 1.5);
     mGameStatus.setFillColor(this->color);
     mGameStatus.setPosition(this->position.x / 1.066, this->position.y / 20);
-    mGameStatus.setString("Offline");
+    mGameStatus.setString("Online");
 }
 
 /* Implement a method for a updateScore During running game*/
