@@ -5,17 +5,18 @@
 #include "headerFiles/UserInterFace.hpp"
 #include "headerFiles/ball.hpp"
 #include "headerFiles/player.hpp"
-#include "headerFiles/client.hpp"
-#include "headerFiles/server.hpp"
+// #include "headerFiles/client.hpp"
+// #include "headerFiles/server.hpp"
+#include "headerFiles/rpc.hpp"
 
 #include <iostream>
 using namespace std;
-class gameMode
+class GameMode
 {
 private:
 public:
-  gameMode();
-  ~gameMode();
+  GameMode();
+  ~GameMode();
 };
 
 

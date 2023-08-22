@@ -11,7 +11,7 @@ sudo apt-get install libsfml-dev
 2. Compile and run
 
 ```bash
-make run
+make 
 ```
 
 # Game Rules #

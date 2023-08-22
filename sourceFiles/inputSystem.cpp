@@ -25,7 +25,7 @@ void InputSystem::update_paddle_position() /*Upading a paddle with input keys */
     {
         // this->newPaddlePositions = paddle->position;
         this->newPaddlePositions.y -= 15.0f; // Modify the position (e.g., move the paddle up)
-        cout<<newPaddlePositions.y<< "minus input system called methods"<<endl;
+        // cout<<newPaddlePositions.y<< "minus input system called methods"<<endl;
 
         // Check if the new position is above the top of the screen
         if (newPaddlePositions.y < 0)
@@ -48,7 +48,7 @@ void InputSystem::update_paddle_position() /*Upading a paddle with input keys */
         }
 
         // std::cout << this->newPaddlePositions.y << "\n";
-                cout<<newPaddlePositions.y <<" plus input system called methods"<<endl;
+                // cout<<newPaddlePositions.y <<" plus input system called methods"<<endl;
 
 
         // paddle->setUpdatePosition(newPaddlePositions); // Set the updated position of the paddle with the setter

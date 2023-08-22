@@ -1,6 +1,6 @@
-#include "../headerFiles/soundManager.hpp"
+#include "../headerFiles/SoundManager.hpp"
 
-soundManager::soundManager()
+SoundManager::SoundManager()
 {
 
     // Load a music to play
@@ -8,7 +8,7 @@ soundManager::soundManager()
         return EXIT_FAILURE;
 }
 
-soundManager::playsound(string sound)
+SoundManager::playsound(string sound)
 {
 
     if (sound == "paddle_Hit")

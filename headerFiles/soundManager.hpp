@@ -1,29 +1,29 @@
-#ifndef SOUNDMANAGER_HPP
-#define SOUNDMANAGER_HPP
+#ifndef SoundManager_HPP
+#define SoundManager_HPP
 #include<string>
 #include "../Library/SFML/Graphics.hpp"
 #include "../Library/SFML/Audio.hpp"
 
-class soundManager
+class SoundManager
 {
 private:
       // Load a music to play
     sf::Music paddle_Hit;
     sf::Music winner_Sound;
 public:
-    soundManager(/* args */);
+    SoundManager(/* args */);
     void playsound(string sound);
-    ~soundManager();
+    ~SoundManager();
 };
 
-soundManager::soundManager(/* args */)
+SoundManager::SoundManager(/* args */)
 {
 }
 
-soundManager::~soundManager()
+SoundManager::~SoundManager()
 {
 }
 
 
 
-#endif // SOUNDMANAGER_HPP
+#endif // SoundManager_HPP
