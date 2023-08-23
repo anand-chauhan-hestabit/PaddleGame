@@ -340,6 +340,7 @@ GameMode::GameMode()
         std::cin >> serverPort;
 
         rpc.clientSocket.connectToServer(serverIP, serverPort);
+
         // rpc.clientSocket.connectToServer("localhost", 5500);
     }
 
@@ -375,7 +376,12 @@ GameMode::GameMode()
     @param third parameter set the color
     */
     Player firstPlayer(Vector2f(screen_width * 0, (screen_height / 2) - 125), Vector2f(25, 120), sf::Color::Green);
-
+    /*
+         Set the properties for secondPlayer
+         @param first-vector for set the postions
+         @param second-vector for set the size
+         @param third parameter set the color
+       */
     Player secondPlayer(Vector2f(screen_width - 25, (screen_height / 2) - 125), Vector2f(25, 120), sf::Color::Green);
 
     if (rpc.isServer)
@@ -386,13 +392,6 @@ GameMode::GameMode()
     {
         secondPlayer.setInputKey(sf::Keyboard::Up, sf::Keyboard::Down);
     }
-
-    /*
-      Set the properties for secondPlayer
-      @param first-vector for set the postions
-      @param second-vector for set the size
-      @param third parameter set the color
-      */
 
     /*Windows creted with screen_width and screen_height and in FullScreen mode*/ // sf::Style::Fullscreen
     if (rpc.isServer)
@@ -408,6 +407,7 @@ GameMode::GameMode()
 
     while (window.isOpen())
     {
+        
 
         sf::Event event;
         while (window.pollEvent(event))
@@ -436,35 +436,46 @@ GameMode::GameMode()
         firstPlayer.getInput()->update_paddle_position();
 
         secondPlayer.getInput()->update_paddle_position();
-
+        GameState gameState;
         // gameDataToSend.PlayerPaddlePositions[1].x = firstPlayer.getInput()->newPaddlePositions.x;
         // gameDataToSend.PlayerPaddlePositions[1].y = firstPlayer.getInput()->newPaddlePositions.y;
         if (rpc.isServer)
         {
-            rpc.sendPaddlePosition(firstPlayer.getInput()->newPaddlePositions.x, firstPlayer.getInput()->newPaddlePositions.y);
+            ball.msfml_ball.setPosition(ball.position);
+            gameState.paddlePosition = firstPlayer.getInput()->newPaddlePositions;
+            gameState.ballPosition = ball.position;
+            rpc.sendGameState(gameState);
         }
         else
         {
-            rpc.sendPaddlePosition(secondPlayer.getInput()->newPaddlePositions.x, secondPlayer.getInput()->newPaddlePositions.y);
+            gameState.paddlePosition = secondPlayer.getInput()->newPaddlePositions;
+            rpc.sendGameState(gameState);
+            // rpc.sendPaddlePosition(secondPlayer.getInput()->newPaddlePositions.x, secondPlayer.getInput()->newPaddlePositions.y);
         }
 
         // secondPlayer.updatePostion();
-        PaddlePosition paddlePosition = rpc.receivePaddlePosition();
+        gameState = rpc.receiveGameState();
 
         if (rpc.isServer)
-            cout << "server - receiving-data is " << paddlePosition.x << "      " << paddlePosition.y << endl;
+        {
+            cout << "server - receiving paddle is " << gameState.paddlePosition.x << "      " << gameState.paddlePosition.y << endl;
+            cout << "server - receiving ball  is " << gameState.ballPosition.x << "      " << gameState.ballPosition.y << endl;
+        }
         else
-            cout << "client - receiving-data is " << paddlePosition.x << "      " << paddlePosition.y << endl;
-
+        {
+            cout << "client - receiving-Paddle positions is " << gameState.paddlePosition.x << "      " << gameState.paddlePosition.y << endl;
+            cout << "client - receiving-ball positions is " << gameState.ballPosition.x << "      " << gameState.ballPosition.y << endl;
+        }
         if (!rpc.isServer)
         {
+            ball.msfml_ball.setPosition(gameState.ballPosition);
             secondPlayer.getPaddle()->setUpdatePosition(sf::Vector2f(secondPlayer.getInput()->newPaddlePositions.x, secondPlayer.getInput()->newPaddlePositions.y));
-            firstPlayer.getPaddle()->setUpdatePosition(sf::Vector2f(paddlePosition.x, paddlePosition.y));
+            firstPlayer.getPaddle()->setUpdatePosition(gameState.paddlePosition);
         }
         if (rpc.isServer)
         {
             firstPlayer.getPaddle()->setUpdatePosition(sf::Vector2f(firstPlayer.getInput()->newPaddlePositions.x, firstPlayer.getInput()->newPaddlePositions.y));
-            secondPlayer.getPaddle()->setUpdatePosition(sf::Vector2f(paddlePosition.x, paddlePosition.y));
+            secondPlayer.getPaddle()->setUpdatePosition(gameState.paddlePosition);
         }
 
         ui->updateScore(firstPlayer.score, secondPlayer.score);            // Update the score ui

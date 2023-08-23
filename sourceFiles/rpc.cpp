@@ -1,22 +1,25 @@
 #include "/home/hestabit/Desktop/PaddleGame/headerFiles/rpc.hpp"
 
-inline sf::Packet &operator>>(sf::Packet &packet, PaddlePosition &paddlePosition)
+/*Serialize a gamestateData*/
+
+inline sf::Packet &operator>>(sf::Packet &packet, GameState &gameState)
 {
-    packet >> paddlePosition.x;
-    packet >> paddlePosition.y;
-    return packet;
+    return packet >> gameState.paddlePosition.x >> gameState.paddlePosition.y >> gameState.ballPosition.x >> gameState.ballPosition.y;
+}
+/*Deserialize a gamestateData*/
+
+inline sf::Packet &operator<<(sf::Packet &packet, const GameState &gameState)
+{
+    return packet << gameState.paddlePosition.x << gameState.paddlePosition.y
+                  << gameState.ballPosition.x << gameState.ballPosition.y;
 }
 
-void RPC::sendPaddlePosition(float x, float y)
+/*Send a gameState*/
+void RPC::sendGameState(const GameState &gameState)
 {
-    // Create a packet to store the paddle position.
     sf::Packet packet;
+    packet << gameState;
 
-    // Pack the paddle position into the packet.
-    packet << x;
-    packet << y;
-
-    // Send the paddle position to the server.
     if (isServer)
     {
         serverSocket.sendGameData(packet);
@@ -27,12 +30,10 @@ void RPC::sendPaddlePosition(float x, float y)
     }
 }
 
-PaddlePosition RPC::receivePaddlePosition()
+/*Receive a gameState*/
+GameState RPC::receiveGameState()
 {
-    // Create a packet to store the paddle position.
     sf::Packet packet;
-
-    // Receive the paddle position from the server.
     if (isServer)
     {
         serverSocket.receiveGameData(packet);
@@ -42,9 +43,7 @@ PaddlePosition RPC::receivePaddlePosition()
         clientSocket.receiveGameData(packet);
     }
 
-    // Extract the paddle position from the packet.
-    PaddlePosition paddlePosition;
-    packet >> paddlePosition;
-
-    return paddlePosition;
+    GameState gameState;
+    packet >> gameState;
+    return gameState;
 }

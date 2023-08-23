@@ -2,7 +2,7 @@
 
 # this code is building and dynamically compiled and run for linux
 
-# CXX := g++
+<!-- # CXX := g++
 # CXXFLAGS := -std=c++11 -Wall
 
 # # Add the source files of your project
@@ -25,7 +25,7 @@
 # 	rm -f $(EXECUTABLE)
 
 # run: clean $(EXECUTABLE)
-# 	./$(EXECUTABLE)
+# 	./$(EXECUTABLE) -->
 
 
 

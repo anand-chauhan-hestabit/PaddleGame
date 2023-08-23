@@ -14,7 +14,6 @@ public: /*Public Properties of Ball class*/
     Vector2f velocity;
     Color color; 
 
-private:
     sf::CircleShape msfml_ball; /*Private Properties of Ball class*/
    
 

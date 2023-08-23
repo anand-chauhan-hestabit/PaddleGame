@@ -91,6 +91,7 @@
 
 #include </home/hestabit/Desktop/PaddleGame/Library/SFML/include/SFML/Network.hpp>
 
+
 struct PaddlePosition {
   float x;
   float y;
@@ -106,7 +107,7 @@ class RPC {
 public:
   RPC() {}
 
-  void sendPaddlePosition(float x, float y) {
+  void sendPaddlePosition(vector2) {
     // Create a packet to store the paddle position.
     sf::Packet packet;
 

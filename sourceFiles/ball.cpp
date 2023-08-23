@@ -57,7 +57,7 @@ void Ball::moveBall(float screenWidth, float screenHeight, Player &first_player,
         this->velocity.y = -this->velocity.y;
     }
 
-    msfml_ball.setPosition(this->position);
+    // msfml_ball.setPosition(this->position);
 }
 
 /*ball paddle collision detection*/
