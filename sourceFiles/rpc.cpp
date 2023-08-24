@@ -4,14 +4,17 @@
 
 inline sf::Packet &operator>>(sf::Packet &packet, GameState &gameState)
 {
-    return packet >> gameState.paddlePosition.x >> gameState.paddlePosition.y >> gameState.ballPosition.x >> gameState.ballPosition.y;
+    return packet >> gameState.paddlePosition.x >> gameState.paddlePosition.y 
+    >> gameState.ballPosition.x >> gameState.ballPosition.y 
+    >> gameState.score[0] >> gameState.score[1];
 }
 /*Deserialize a gamestateData*/
 
 inline sf::Packet &operator<<(sf::Packet &packet, const GameState &gameState)
 {
     return packet << gameState.paddlePosition.x << gameState.paddlePosition.y
-                  << gameState.ballPosition.x << gameState.ballPosition.y;
+                  << gameState.ballPosition.x << gameState.ballPosition.y
+                  << gameState.score[0] << gameState.score[1];
 }
 
 /*Send a gameState*/

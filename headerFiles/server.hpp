@@ -1,5 +1,6 @@
 #ifndef SERVER_HPP
 #define SERVER_HPP
+#include<iostream>
 
 #include"/home/hestabit/Desktop/PaddleGame/Library/SFML/include/SFML/Network.hpp"
 

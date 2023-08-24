@@ -1,5 +1,6 @@
 #ifndef CLIENT_HPP
 #define CLIENT_HPP
+#include<iostream>
 
 #include"/home/hestabit/Desktop/PaddleGame/Library/SFML/include/SFML/Network.hpp"
 class Client
@@ -12,8 +13,12 @@ public:
     void receiveGameData(sf::Packet& packet);
     void disconnect();
 
+public:
+bool isServerConnected;
+
 private:
     sf::TcpSocket socket;
+
 };
 
 #endif // CLIENT_HPP

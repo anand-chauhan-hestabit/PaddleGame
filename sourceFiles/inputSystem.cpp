@@ -48,7 +48,7 @@ void InputSystem::update_paddle_position() /*Upading a paddle with input keys */
         }
 
         // std::cout << this->newPaddlePositions.y << "\n";
-                // cout<<newPaddlePositions.y <<" plus input system called methods"<<endl;
+        // cout<<newPaddlePositions.y <<" plus input system called methods"<<endl;
 
 
         // paddle->setUpdatePosition(newPaddlePositions); // Set the updated position of the paddle with the setter

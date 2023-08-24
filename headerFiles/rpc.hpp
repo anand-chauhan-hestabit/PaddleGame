@@ -5,37 +5,11 @@
 #include "/home/hestabit/Desktop/PaddleGame/headerFiles/client.hpp"
 #include "/home/hestabit/Desktop/PaddleGame/headerFiles/server.hpp"
 
-// struct PaddlePosition
-// {
-//     float x;
-//     float y;
-// };
-
-// inline sf::Packet &operator>>(sf::Packet &packet, PaddlePosition &paddlePosition);
-
-// class RPC
-// {
-// public:
-//     RPC() {} //RPC constructor
-
-//     void sendPaddlePosition(float x, float y);
-
-//     PaddlePosition receivePaddlePosition();
-
-//     bool isServer;
-
-// public:
-//     Server serverSocket;
-//     Client clientSocket;
-// };
-
-// #endif // RPC_HPP
-
 struct GameState
 {
     sf::Vector2f paddlePosition;
     sf::Vector2f ballPosition;
-    int score;
+    int score[2];
 };
 
 inline sf::Packet &operator>>(sf::Packet &packet, GameState &gameState);

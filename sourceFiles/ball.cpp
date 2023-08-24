@@ -15,7 +15,6 @@ Ball::Ball(float radius, Vector2f position, Color color)
     msfml_ball.setRadius(this->radius);
     msfml_ball.setPosition(this->position.x / 2, this->position.y / 2);
     msfml_ball.setFillColor(this->color);
-    // this->moveBall(this->position.x,this->position.y);
 }
 // draw a ball
 void Ball::drawball(sf::RenderWindow &window)
@@ -34,14 +33,14 @@ void Ball::moveBall(float screenWidth, float screenHeight, Player &first_player,
     if (this->position.x < 0)
     {
 
-        second_player.score++; /*Increment a score*/
+        // second_player.score++; /*Increment a score*/
 
         resetBallAfterInning(); /*Ball Reset After win or loss condition*/
     }
     else if (this->position.x >= sf::VideoMode::getDesktopMode().width)
     {
 
-        first_player.score++; /*Increament a score*/
+        // first_player.score++; /*Increament a score*/
 
         resetBallAfterInning(); /*Ball Reset After win or loss condition*/
     }
