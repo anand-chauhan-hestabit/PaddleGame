@@ -9,24 +9,27 @@
 class Player
 {
 private:
-    Paddle *paddle;     // Use a pointer for Paddle
-    InputSystem *input; // use a pointer for Input system
+    Paddle *paddle;              // Use a pointer for Paddle
+    InputSystem *inputForPlayer; // use a pointer for Input system
 
 public:
     int id;
     int score;
-    Player(sf::Vector2f position, sf::Vector2f size, sf::Color color);
-    void setInputKey(sf::Keyboard::Key firstKey, sf::Keyboard::Key secondKey);
-    void updatePostion();
 
-    Paddle* getPaddle()
+    Player(sf::Vector2f position, sf::Vector2f size, sf::Color color);
+
+    void setInputKey(sf::Keyboard::Key firstKey, sf::Keyboard::Key secondKey);
+
+    sf::Vector2f getPlayerPosistion(); // return a player(paddle positions)
+
+    void setPlayerPositons(sf::Vector2f newPositions); // set a new postion to player
+
+    Paddle *getPaddle()
     {
-        return paddle; // Return the Paddle object by reference //return a paddlle for get a bounds of paddle for collisions and this is getter for private membet 
+        return paddle;
     }
-     InputSystem* getInput()
-    {
-        return input; // Return the Paddle object by reference //return a paddlle for get a bounds of paddle for collisions and this is getter for private membet 
-    }
+
+    void updatingInput(); /* Updateing input method is basically update a newPaddlePositon variable with new paddle postions */
 
     void draw(sf::RenderWindow &window);
 };

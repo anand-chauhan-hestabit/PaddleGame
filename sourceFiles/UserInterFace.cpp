@@ -7,7 +7,7 @@ using namespace std;
 UserInterFace::UserInterFace(int characterSize, Color color, Vector2f position)
 {
     Font font;
-    if (!font.loadFromFile("arial_narrow.ttf"))
+    if (!font.loadFromFile("/home/hestabit/Desktop/PaddleGame/assets/fonts/english.ttf"))
     {
         std::cout << "Failed to load font." << std::endl;
     }
@@ -40,14 +40,16 @@ UserInterFace::UserInterFace(int characterSize, Color color, Vector2f position)
     mGameStatus.setCharacterSize(this->characterSize / 1.5);
     mGameStatus.setFillColor(this->color);
     mGameStatus.setPosition(this->position.x / 1.066, this->position.y / 20);
-    mGameStatus.setString("Online");
+    mGameStatus.setString("");
 }
 
 /* Implement a method for a updateScore During running game*/
-void UserInterFace::updateScore(int first_score, int second_score)
+void UserInterFace::updateScore(int first_score, int second_score,const std::string& gameStatus)
 {
     mFirstScore.setString(std::to_string(first_score));
     mSecondScore.setString(std::to_string(second_score));
+    mGameStatus.setString(gameStatus);
+
 }
 
 /*

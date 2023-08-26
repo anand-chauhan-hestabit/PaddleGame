@@ -8,10 +8,13 @@
 class InputSystem
 {
 public:
-    InputSystem(Paddle *paddle); /*Change the parameter to Paddle*/
+    InputSystem(Paddle *paddle); /*sending a paddle pointer to input system for some calculatiosn like(paddle boundy set) */
+
     void setKeys(sf::Keyboard::Key firstKey, sf::Keyboard::Key secondKey);
-    void update_paddle_position();
-    sf::Vector2f newPaddlePositions;
+    
+    void updatingInputs(); // updating a inputs keys and new values
+
+    sf::Vector2f newPaddlePositions; // New PaddlePostion for player (but now not set)
 
 private:
     Paddle *paddle;

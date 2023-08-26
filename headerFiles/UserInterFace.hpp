@@ -1,5 +1,8 @@
 #ifndef USERINTERFACE_HPP
 #define USERINTERFACE_HPP
+#include <iostream>
+#include <string>
+
 
 #include "../Library/SFML/include/SFML/Graphics.hpp"
 
@@ -29,7 +32,7 @@ public:
     void drawSecondScore(sf::RenderWindow &window);
     void drawGameStatus(sf::RenderWindow &window);
     void drawGameTimer(sf::RenderWindow &window);
-    void updateScore(int first_score,int second_score);
+    void updateScore(int first_score,int second_score,const std::string& gameStatus = "");
 };
 
 #endif // USERINTERFACE_HPP

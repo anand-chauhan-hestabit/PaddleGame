@@ -22,8 +22,21 @@ void Ball::drawball(sf::RenderWindow &window)
     window.draw(this->msfml_ball);
 }
 
+/*Getter-> Get a ball */
+sf::Vector2f Ball::getBallPosition()
+{
+    return this->position;
+}
+
+/*Setter-> Set Ball New Positons */
+void Ball::setBallPosition(sf::Vector2f NewBallpostions)
+{
+
+    msfml_ball.setPosition(NewBallpostions);
+}
+
 // moving a ball
-void Ball::moveBall(float screenWidth, float screenHeight, Player &first_player, Player &second_player)
+void Ball::moveBall(Player &first_player, Player &second_player)
 {
     // Update the ball's position based on its velocity
     this->position.x += this->velocity.x;
@@ -33,14 +46,14 @@ void Ball::moveBall(float screenWidth, float screenHeight, Player &first_player,
     if (this->position.x < 0)
     {
 
-        // second_player.score++; /*Increment a score*/
+        second_player.score++; /*Increment a score*/
 
         resetBallAfterInning(); /*Ball Reset After win or loss condition*/
     }
     else if (this->position.x >= sf::VideoMode::getDesktopMode().width)
     {
 
-        // first_player.score++; /*Increament a score*/
+        first_player.score++; /*Increament a score*/
 
         resetBallAfterInning(); /*Ball Reset After win or loss condition*/
     }
@@ -48,15 +61,12 @@ void Ball::moveBall(float screenWidth, float screenHeight, Player &first_player,
     // Check if the ball hits the top or bottom boundary
     if (this->position.y <= 0)
     {
-        // this->position.y = this->radius;
         this->velocity.y = -this->velocity.y;
     }
     else if (this->position.y >= sf::VideoMode::getDesktopMode().height - 2 * this->radius)
     {
         this->velocity.y = -this->velocity.y;
     }
-
-    // msfml_ball.setPosition(this->position);
 }
 
 /*ball paddle collision detection*/
@@ -65,15 +75,17 @@ void Ball::check_ball_paddle_collision(Ball &ball, Player &first_player, Player 
     if (ball.msfml_ball.getGlobalBounds().intersects(first_player.getPaddle()->mpaddle.getGlobalBounds()))
     {
         // Collision detected!
-        ball.msfml_ball.setFillColor(sf::Color::Yellow);
+        // ball.msfml_ball.setFillColor(sf::Color::Yellow);
         ball.velocity.x *= -1;
+       
         ball.msfml_ball.setPosition(ball.msfml_ball.getPosition() + ball.velocity);
     }
     if (ball.msfml_ball.getGlobalBounds().intersects(second_player.getPaddle()->mpaddle.getGlobalBounds()))
     {
         // Collision detected!
-        ball.msfml_ball.setFillColor(sf::Color::Red);
+        // ball.msfml_ball.setFillColor(sf::Color::Red);
         ball.velocity.x *= -1;
+       
         ball.msfml_ball.setPosition(ball.msfml_ball.getPosition() + ball.velocity);
     }
 }

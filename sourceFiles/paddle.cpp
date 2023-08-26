@@ -16,7 +16,6 @@ Paddle::Paddle(Vector2f position, Vector2f size, Color color)
     mpaddle.setFillColor(this->color);
     mpaddle.setPosition(this->position);
     mpaddle.setSize(this->size);
-    
 }
 
 /*Implement a drawPaddle method for draw on screen*/
@@ -25,9 +24,20 @@ void Paddle::drawPaddle(sf::RenderWindow &window)
     window.draw(this->mpaddle);
 }
 
+/* Get a paddle positios */
+
+sf::Vector2f Paddle::getPaddlePosition()
+{
+    return this->position;
+}
 /*Implement  a setter for mpaddle private membet of paddle*/
-void Paddle::setUpdatePosition(sf::Vector2f position)
+void Paddle::setPaddlePosition(sf::Vector2f position)
 {
     this->position = position;
     mpaddle.setPosition(this->position);
 }
+
+// Paddle::getPaddle()
+// {
+//     return this->mpaddle;
+// }

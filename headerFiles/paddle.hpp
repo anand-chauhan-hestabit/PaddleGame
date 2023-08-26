@@ -11,7 +11,7 @@ public:
     Vector2f size;
     Color color;
 
-    // private:
+// private:
     RectangleShape mpaddle;
 
 public:
@@ -26,7 +26,11 @@ public:
 
     void drawPaddle(sf::RenderWindow &window);
 
-    void setUpdatePosition(sf::Vector2f position); /*Implment  a setter for mpaddle private membet of paddle*/
+    sf::Vector2f getPaddlePosition();
+
+    void setPaddlePosition(sf::Vector2f newPaddlePosition); /*Implment  a setter for mpaddle private membet of paddle*/
+
+    // Paddle * getPaddle();
 };
 
 #endif // PADDLE_HPP
