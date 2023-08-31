@@ -1,19 +1,18 @@
 /*gameMode.cpp file and main method*/
 #include "../headerFiles/online.hpp"
 
-OnlineMode::OnlineMode()
+OnlineMode::OnlineMode(sf::RenderWindow &newWindow) : window(newWindow)
 {
-
     // Create an RPC object.
     RPC rpc;
 
     // Get the user's choice.
     std::string choice;
-    std::cout << "Do you want to be the server (s) or the client (c)?" << std::endl;
+    std::cout << "Do you want to be the server (s) or the client (any key)?" << std::endl;
     std::cin >> choice;
 
     // Set the RPC object's isServer flag.
-    if (choice == "s")
+    if (choice == "s" || choice == "S")
     {
         rpc.isServer = true;
     }
@@ -43,14 +42,13 @@ OnlineMode::OnlineMode()
         std::cin >> serverPort;
 
         rpc.clientSocket.connectToServer(serverIP, serverPort);
+
         if (!rpc.clientSocket.isServerConnected)
         {
             cout << "not Connected to server " << endl;
             return;
         }
         cout << "Client is connected with server " << endl;
-
-        // rpc.clientSocket.connectToServer("localhost", 5500);
     }
 
     unsigned short framerate = 60.0f;
@@ -60,7 +58,7 @@ OnlineMode::OnlineMode()
 
     // screen_width = screen_width - 140;
     // screen_height = screen_height - 115;
-    sf::RenderWindow window;
+    // sf::RenderWindow window;
 
     /*  Arg->Argument
     Set the properties for Ball
@@ -84,14 +82,14 @@ OnlineMode::OnlineMode()
     @param second-vector for set the size
     @param third parameter set the color
     */
-    Player firstPlayer(Vector2f(screen_width * 0, (screen_height / 2) - 125), Vector2f(25, 120), sf::Color::White);
+    Player firstPlayer(Vector2f(screen_width * 0, (screen_height / 2) - 125), Vector2f(25, 120), sf::Color::Green);
     /*
     Set the properties for secondPlayer
     @param first-vector for set the postions
     @param second-vector for set the size
     @param third parameter set the color
           */
-    Player secondPlayer(Vector2f(screen_width - 25, (screen_height / 2) - 125), Vector2f(25, 120), sf::Color::White);
+    Player secondPlayer(Vector2f(screen_width - 25, (screen_height / 2) - 125), Vector2f(25, 120), sf::Color::Red);
 
     /*Set he method to acording client and server*/
     if (rpc.isServer) /*If choose a server */
@@ -125,9 +123,16 @@ OnlineMode::OnlineMode()
             if (event.type == sf::Event::Closed)
                 window.close();
             // Press escape for exit
+            // else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape)
+            // {
+            //     window.close();
+            // }
             else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape)
             {
-                window.close();
+
+                Menu menu(window);
+                menu.run();
+                std::cout << "escaped clicked" << endl;
             }
         }
 
@@ -179,12 +184,10 @@ OnlineMode::OnlineMode()
             secondPlayer.setPlayerPositons(gameState.paddlePosition);
         }
 
-        ui->updateScore(firstPlayer.score, secondPlayer.score, "Online");
+        ui->updateScore(firstPlayer.score, secondPlayer.score, "Online", sf::Color::Green);
 
-        if (rpc.isServer)
-        {                                                                      // Update the score ui
-            ball.check_ball_paddle_collision(ball, firstPlayer, secondPlayer); // check collisions
-        }
+        // Update the score ui
+        ball.check_ball_paddle_collision(ball, firstPlayer, secondPlayer); // check collisions
 
         /*clear the screen */
         window.clear();
@@ -193,6 +196,11 @@ OnlineMode::OnlineMode()
         ui->drawFirstScore(window);
         ui->drawSecondScore(window);
         ui->drawGameStatus(window);
+        ui->drawScoreImage(window);
+
+        ui->drawServerStatus(window);
+        ui->drawClientStatus(window);
+
         firstPlayer.draw(window);  // Draw a firstPlayer on game screen
         secondPlayer.draw(window); // Draw a secondPlayer on game screen
         ball.drawball(window);     // Draw a ball on screen

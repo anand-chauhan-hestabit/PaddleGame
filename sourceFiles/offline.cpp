@@ -1,7 +1,7 @@
 /*gameMode.cpp file and main method*/
 #include "../headerFiles/offline.hpp"
 
-OfflineMode::OfflineMode()
+OfflineMode::OfflineMode(sf::RenderWindow &newWindow) : window(newWindow)
 {
 
     unsigned short framerate = 60.0f;
@@ -9,9 +9,10 @@ OfflineMode::OfflineMode()
     unsigned short screen_width = sf::VideoMode::getDesktopMode().width;   // Get Desktop width
     unsigned short screen_height = sf::VideoMode::getDesktopMode().height; // Get Desktop height
 
+   
     // screen_width = screen_width - 140;
     // screen_height = screen_height - 115;
-    sf::RenderWindow window;
+    // sf::RenderWindow window;
 
     /*  Arg->Argument
     Set the properties for Ball
@@ -35,7 +36,7 @@ OfflineMode::OfflineMode()
     @param second-vector for set the size
     @param third parameter set the color
     */
-    Player firstPlayer(Vector2f(screen_width * 0, (screen_height / 2) - 125), Vector2f(25, 120),sf::Color::White);
+    Player firstPlayer(Vector2f(screen_width * 0, (screen_height / 2) - 125), Vector2f(25, 120), sf::Color::White);
     firstPlayer.setInputKey(sf::Keyboard::W, sf::Keyboard::S);
 
     /*
@@ -61,9 +62,15 @@ OfflineMode::OfflineMode()
             if (event.type == sf::Event::Closed)
                 window.close();
             // Press escape for exit
+            // else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape)
+            // {
+            //     window.close();
+            // }
             else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape)
             {
-                window.close();
+
+                Menu menu(window);
+                menu.run();
             }
         }
 
@@ -74,13 +81,15 @@ OfflineMode::OfflineMode()
         @param secondPlayer for the update the score
         */
 
-        ball.moveBall(firstPlayer, secondPlayer);  
- 
+        ball.moveBall(firstPlayer, secondPlayer);
+
         firstPlayer.updatingInput();
 
         secondPlayer.updatingInput();
 
-        ball.setBallPosition(ball.getBallPosition());  /* Set the ball Positions */
+        ball.setBallPosition(ball.getBallPosition()); /* Set the ball Positions */
+
+        // cout << "Ball GetPositions: " << ball.getBallPosition().x << " " << ball.getBallPosition().y << endl;
 
         secondPlayer.setPlayerPositons(secondPlayer.getPlayerPosistion()); /* Set the firstPlayer Positions */
 
@@ -88,7 +97,7 @@ OfflineMode::OfflineMode()
 
         // cout << "fist score is " << firstPlayer.score << " second score is " << secondPlayer.score << endl;
 
-        ui->updateScore(firstPlayer.score, secondPlayer.score,"Offline");
+        ui->updateScore(firstPlayer.score, secondPlayer.score, "Offline",sf::Color::Blue);
 
         // Update the score ui
         ball.check_ball_paddle_collision(ball, firstPlayer, secondPlayer); // check collisions
@@ -100,6 +109,9 @@ OfflineMode::OfflineMode()
         ui->drawFirstScore(window);
         ui->drawSecondScore(window);
         ui->drawGameStatus(window);
+        ui->drawScoreImage(window);
+        // ui->drawClientStatus(window);
+        // ui->drawServerStatus(window);
         firstPlayer.draw(window);  // Draw a firstPlayer on game screen
         secondPlayer.draw(window); // Draw a secondPlayer on game screen
         ball.drawball(window);     // Draw a ball on screen
